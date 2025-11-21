@@ -343,17 +343,19 @@ app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 
 //db connect
-mongoose.connect(`mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.t5n91s9.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`)
-.then(()=>{
-    console.log("mongodb connected");
-})
-.catch((error)=>{
-    console.log("mongodb connectioin error");
-})
+const connectDB = require("./Config/db");
+connectDB();
+// mongoose.connect(`mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.t5n91s9.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`)
+// .then(()=>{
+//     console.log("mongodb connected");
+// })
+// .catch((error)=>{
+//     console.log("mongodb connectioin error");
+// })
 
 //routes
 //app.use("/api/userroutes", userRoutes);
-app.use("/api",   products);
+app.use("/",   products);
 
 app.get("/", (req,res)=>{
     res.send("Shopty server is running");
