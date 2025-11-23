@@ -16,10 +16,16 @@ const createProduct = async (req,res)=>{
 }
 const getProduct = async (req,res)=>{
     try{
-       
-       const product = await Product.find({});
+       const {subcategory} = req.query;
+       const query = {};
+        if(subcategory){
+           query.subcategory = { $regex: subcategory, $options: "i" };
+          
+        }
+
+       const product = await Product.find(query);
        console.log("hello data",product);
-        res.json( product);
+        res.json(product);
     }
     catch (error){
         res.status(500).json({success:false, message: error.message});
