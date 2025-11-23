@@ -16,11 +16,25 @@ const createProduct = async (req,res)=>{
 }
 const getProduct = async (req,res)=>{
     try{
-       const {subcategory} = req.query;
+       const {subcategory,price} = req.query;
        const query = {};
         if(subcategory){
            query.subcategory = { $regex: subcategory, $options: "i" };
           
+        }
+        if(price){
+          if(price=="under50"){
+            query.price = {$lt:50};
+          }
+        else  if(price=="50to200"){
+            query.price = {$gt:50};
+          }
+        else  if(price=="above200"){
+            query.price = {$gt:200};
+          }
+          
+
+
         }
 
        const product = await Product.find(query);
