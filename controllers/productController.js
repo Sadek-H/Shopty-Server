@@ -16,7 +16,9 @@ const createProduct = async (req,res)=>{
 }
 const getProduct = async (req,res)=>{
     try{
-       const {subcategory,price} = req.query;
+       const {subcategory,price,skip,limit} = req.query;
+       const skipNum = Number(skip);
+       const limitNum = Number(limit);
        const query = {};
         if(subcategory){
            query.subcategory = { $regex: subcategory, $options: "i" };
@@ -36,10 +38,11 @@ const getProduct = async (req,res)=>{
 
 
         }
-
-       const product = await Product.find(query);
-       console.log("hello data",product);
-        res.json(product);
+       
+       const product = await Product.find(query).skip(skipNum).limit(limitNum);
+       const totalcount = await Product.countDocuments(query);
+       console.log("Final res send",{totalcount, product});
+       res.json({totalcount, product});
     }
     catch (error){
         res.status(500).json({success:false, message: error.message});
