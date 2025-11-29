@@ -336,6 +336,7 @@ dotenv.config();
 //const userRoutes = require("./routes/userroutes");
 const products = require("./routes/productroutes");
 const subcategory = require ("./routes/Subcategory");
+const register = require ("./routes/userroutes");
 const app = express();
 
 //middleware
@@ -358,6 +359,7 @@ connectDB();
 //app.use("/api/userroutes", userRoutes);
 app.use("/",   products);
 app.use("/", subcategory);
+app.use("/", register);
 
 app.get("/", (req,res)=>{
     res.send("Shopty server is running");

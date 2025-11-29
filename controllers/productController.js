@@ -16,10 +16,17 @@ const createProduct = async (req,res)=>{
 }
 const getProduct = async (req,res)=>{
     try{
-       const {subcategory,price,skip,limit} = req.query;
+       const {subcategory,price,skip,limit=3,search} = req.query;
+       const query = {};
        const skipNum = Number(skip);
        const limitNum = Number(limit);
-       const query = {};
+        if(search){
+          query.$or = [
+            {name: { $regex: search, $options: "i"}},
+            {category: { $regex: search, $options: "i"}},
+            {subcategory: { $regex: search, $options: "i"}},
+          ]
+        }
         if(subcategory){
            query.subcategory = { $regex: subcategory, $options: "i" };
           
@@ -39,9 +46,10 @@ const getProduct = async (req,res)=>{
 
         }
        
-       const product = await Product.find(query).skip(skipNum).limit(limitNum);
+        
        const totalcount = await Product.countDocuments(query);
-       console.log("Final res send",{totalcount, product});
+       const product = await Product.find(query).skip(skipNum).limit(limitNum);
+      // console.log("Final res send",{totalcount, product});
        res.json({totalcount, product});
     }
     catch (error){
