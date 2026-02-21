@@ -49,11 +49,23 @@ const getProduct = async (req,res)=>{
         
        const totalcount = await Product.countDocuments(query);
        const product = await Product.find(query).skip(skipNum).limit(limitNum);
-      // console.log("Final res send",{totalcount, product});
+      //console.log("Final res send",{totalcount, product});
        res.json({totalcount, product});
     }
     catch (error){
         res.status(500).json({success:false, message: error.message});
     }
 }
-module.exports = {createProduct, getProduct};
+
+const getProductById = async (req,res)=>{
+    try{
+       const {id} = req.params;
+       const product = await Product.findById(id);
+       res.json(product);
+    }
+    catch (error){
+        res.status(500).json({success:false, message: error.message});
+
+    }
+}
+module.exports = {createProduct, getProduct, getProductById};

@@ -26,8 +26,7 @@ const getUseremail = async(req,res)=>{
         const {email} = req.params;
         const user = await User.findOne({email});
         console.log("user",user);
-        
-        res.send(user);
+        res.send(user);''
     }
     catch(error){
         res.status(500).json ({messagge:error.message})
