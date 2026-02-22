@@ -1,4 +1,5 @@
 const Product = require("../models/Product");
+const Payment = require("../models/PaymentSchema");
 const Stripe = require("stripe");
 const stripe = Stripe(process.env.PAYMENT_KEY);
 
@@ -29,4 +30,24 @@ const CreatePayment = async (req, res) => {
   }
 };
 
-module.exports = { CreatePayment };
+const payment = async(req,res)=>{
+   try{
+     const data = req.body;
+      const paymentdata = {
+       ...data,
+       status:"success"
+      }
+      const newPayment = new Payment(paymentdata);
+      await newPayment.save();
+
+      //or const payment = await Payment.create(paymentdata);
+      
+      res.status(200).json({message:"Payment successful"});
+   } catch (error) {
+     res.status(500).json({message:error.message});
+   }
+
+
+}
+
+module.exports = { CreatePayment ,payment};
