@@ -11,5 +11,16 @@ const  createCart = async (req,res)=>{
     }
 }
 
-module.exports = {createCart}
+const getCart = async (req,res)=>{
+    try{
+        const carts = await cart.find();
+        res.status (200).json({success: true, carts});
+
+    }
+    catch(error){
+        res.status(500).json({success:false, message: error.message});
+    }
+}
+
+module.exports = {createCart, getCart}
 
