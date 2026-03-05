@@ -3,7 +3,7 @@ const  createCart = async (req,res)=>{
     try{
         const data = req.body;
         const {id} = req.params;
-        const alreadycart = await cart.findOne({id})
+        const alreadycart = await cart.findOne({cart})
         if(alreadycart){
             return res.status(400).json({success: false, message: 'Cart already exists'});
         }
