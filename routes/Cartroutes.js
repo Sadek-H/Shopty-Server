@@ -1,4 +1,4 @@
-const { createCart, getCart } = require("../controllers/cartController");
+const { createCart, getCart, deleteCart } = require("../controllers/cartController");
 
 const router = require("express").Router();
 
