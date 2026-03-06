@@ -50,4 +50,15 @@ const payment = async(req,res)=>{
 
 }
 
-module.exports = { CreatePayment ,payment};
+const getPayments = async (req,res)=>{
+  try{
+     const payments = await Payment.find();
+     res.status(200).json({payments});
+
+  }
+  catch(error){
+      res.status(500).json({message:error.message});
+  }
+}
+
+module.exports = { CreatePayment ,payment, getPayments};
