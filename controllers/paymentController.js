@@ -52,7 +52,8 @@ const payment = async(req,res)=>{
 
 const getPayments = async (req,res)=>{
   try{
-     const payments = await Payment.find();
+    const {email} = req.body;
+     const payments = await Payment.find({email});
      res.status(200).json({payments});
 
   }
