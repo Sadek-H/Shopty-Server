@@ -53,7 +53,7 @@ const payment = async(req,res)=>{
 const getPayments = async (req,res)=>{
   try{
     const {email} = req.body;
-     const payments = await Payment.find({email});
+     const payments = await Payment.find(email);
      res.status(200).json({payments});
 
   }
