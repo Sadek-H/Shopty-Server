@@ -6,7 +6,7 @@ const stripe = Stripe(process.env.PAYMENT_KEY);
 const CreatePayment = async (req, res) => {
   try {
     const { id } = req.body;
- console.log("Body:", req.body);
+    console.log("Body:", req.body);
     const product = await Product.findById(id);
 
     if (!product) {
@@ -24,42 +24,37 @@ const CreatePayment = async (req, res) => {
     res.status(200).json({
       clientSecret: paymentIntent.client_secret,
     });
-
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 };
 
-const payment = async(req,res)=>{
-   try{
-     const data = req.body;
-      const paymentdata = {
-       ...data,
-       status:"success"
-      }
-      const newPayment = new Payment(paymentdata);
-      await newPayment.save();
+const payment = async (req, res) => {
+  try {
+    const data = req.body;
+    const paymentdata = {
+      ...data,
+      status: "success",
+    };
+    const newPayment = new Payment(paymentdata);
+    await newPayment.save();
 
-      //or const payment = await Payment.create(paymentdata);
-      
-      res.status(200).json({message:"Payment successful"});
-   } catch (error) {
-     res.status(500).json({message:error.message});
-   }
+    //or const payment = await Payment.create(paymentdata);
 
-
-}
-
-const getPayments = async (req,res)=>{
-  try{
-    const {email} = req.query;
-     const payments = await Payment.find({email});
-     res.status(200).json({payments});
-
+    res.status(200).json({ message: "Payment successful" });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
   }
-  catch(error){
-      res.status(500).json({message:error.message});
-  }
-}
+};
 
-module.exports = { CreatePayment ,payment, getPayments};
+const getPayments = async (req, res) => {
+  try {
+    const { email } = req.query;
+    const payments = await Payment.find({ email });
+    res.status(200).json({ payments });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+module.exports = { CreatePayment, payment, getPayments };
