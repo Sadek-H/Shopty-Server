@@ -339,7 +339,7 @@ const subcategory = require ("./routes/Subcategory");
 const register = require ("./routes/userroutes");
 const payment = require ("./routes/CreatePayment");
 const cart = require("./routes/Cartroutes");
-const vendor = require("./routes/Vendor");
+const createvendor = require("./routes/Vendor");
 const app = express();
 
 //middleware
@@ -365,7 +365,7 @@ app.use("/", subcategory);
 app.use("/", register);
 app.use("/", payment);
 app.use("/", cart);
-app.use("/", vendor);
+app.use("/", createvendor);
     
 app.get("/", (req,res)=>{
     res.send("Shopty server is running");
