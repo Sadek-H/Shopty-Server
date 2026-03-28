@@ -7,7 +7,7 @@ cloudinary.config({
   api_secret: process.env.API_SECRET
 });
 
-const storage = new createCloudinaryStorage({
+const storage = new CloudinaryStorage({
   cloudinary: cloudinary,
   params: {
     folder: 'Shopty',
