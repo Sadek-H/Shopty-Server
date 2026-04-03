@@ -340,6 +340,7 @@ const register = require ("./routes/userroutes");
 const payment = require ("./routes/CreatePayment");
 const cart = require("./routes/Cartroutes");
 const createvendor = require("./routes/Vendor");
+const createRider = require("./routes/Rider");
 const app = express();
 
 //middleware
@@ -368,6 +369,7 @@ app.use("/", register);
 app.use("/", payment);
 app.use("/", cart);
 app.use("/", createvendor);
+app.use( "/", createRider);
     
 app.get("/", (req,res)=>{
     res.send("Shopty server is running");
