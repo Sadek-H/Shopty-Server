@@ -32,4 +32,19 @@ const getUseremail = async(req,res)=>{
         res.status(500).json ({messagge:error.message})
     }
 }
-module.exports = {registerUser, getAllUser, getUseremail};
+
+const updateUser = async(req,res)=>{
+    try{
+        const data = req.body;
+        console.log("userdata",data);
+        const {id} = req.params;
+        const user = await User.findByIdAndUpdate(id, data, {new:true});
+        res.status(200).json(user);
+    }
+    catch(error){
+        res.status(500).json ({messagge:error.message})
+    }
+}
+
+
+module.exports = {registerUser, getAllUser, getUseremail,updateUser};

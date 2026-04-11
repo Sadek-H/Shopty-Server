@@ -49,8 +49,10 @@ const payment = async (req, res) => {
 
 const getPayments = async (req, res) => {
   try {
-    const { email } = req.query;
+     const email = req.params.email; ;
+    console.log("email:", email);
     const payments = await Payment.find({ email });
+    console.log("payments",payments);
     res.status(200).json({ payments });
   } catch (error) {
     res.status(500).json({ message: error.message });
