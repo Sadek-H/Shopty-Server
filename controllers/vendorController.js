@@ -20,4 +20,20 @@ const getAllVendors = async(req,res)=>{
 
 }
 
-module.exports = {createVendor, getAllVendors};
+const updateVendorstatus = async(req,res)=>{
+  try{
+      const {id} = req.params;
+      const {status} = req.body;
+      const vendor = await vendorSchema.findByIdAndUpdate(id, {status}, {new:true});
+      if(!vendor){
+        return res.status(404).json({success:false, message:"Vendor not found"});
+      }
+      res.status(200).json({success:true, vendor});
+
+  }
+  catch(error){
+    res.status(500).json({success:false, message:"Internal Server Error"})
+  }
+}
+
+module.exports = {createVendor, getAllVendors, updateVendorstatus};
