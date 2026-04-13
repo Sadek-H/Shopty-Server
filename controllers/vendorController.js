@@ -13,4 +13,11 @@ const createVendor = async(req,res)=>{
     }
 }
 
-module.exports = {createVendor};
+const getAllVendors = async(req,res)=>{
+
+  const vendors = await vendorSchema.find();
+    res.status(200).json({success:true, vendors});
+
+}
+
+module.exports = {createVendor, getAllVendors};
